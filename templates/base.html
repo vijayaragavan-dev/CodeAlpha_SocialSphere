@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ 'dark' if session.get('dark_mode') else 'light' }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SocialSphere{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="{{ url_for('index') }}" class="navbar-brand">Social<span>Sphere</span></a>
+
+      {% if current_user.is_authenticated %}
+      <form class="search-form" action="{{ url_for('search') }}" method="GET">
+        <input type="text" name="q" placeholder="Search users..." value="{{ request.args.get('q', '') }}" aria-label="Search users">
+        <button type="submit" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </form>
+      {% endif %}
+
+      <ul class="navbar-nav">
+        <li>
+          <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+            {{ '☾' if session.get('dark_mode') else '☀' }}
+          </button>
+        </li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('create_post') }}">New Post</a></li>
+        <li><a href="{{ url_for('profile', username=current_user.username) }}">Profile</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <div class="flash-messages">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      <span>{{ message }}</span>
+      <button class="alert-close">&times;</button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

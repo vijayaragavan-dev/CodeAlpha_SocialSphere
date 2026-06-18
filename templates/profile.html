@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% block title %}{{ profile_user.username }} - SocialSphere{% endblock %}
+
+{% block content %}
+<div class="profile-header">
+  <div class="profile-cover"></div>
+  <div class="profile-info">
+    <div class="profile-img-wrapper">
+      <img src="{{ url_for('static', filename='uploads/' + (profile_user.profile_image or 'default.jpg')) }}" alt="{{ profile_user.username }}" class="profile-img-large">
+    </div>
+    <div class="profile-details">
+      <h1>{{ profile_user.username }}</h1>
+      {% if profile_user.bio %}
+      <div class="profile-bio">{{ profile_user.bio }}</div>
+      {% endif %}
+      <div class="profile-meta">
+        {% if current_user.is_authenticated %}
+        <span data-online-user="{{ profile_user.id }}">
+          <span class="online-dot {% if profile_user.is_online %}online{% else %}offline{% endif %}"></span>
+          <span class="online-text">
+            {% if profile_user.is_online %}Online{% else %}{{ profile_user.get_time_ago() }}{% endif %}
+          </span>
+        </span>
+        <span>&middot;</span>
+        {% endif %}
+        <span>Joined {{ profile_user.created_at.strftime('%B %Y') }}</span>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-number">{{ post_count }}</span>
+          <span class="stat-label">Posts</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ followers_count }}</span>
+          <span class="stat-label">Followers</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">{{ following_count }}</span>
+          <span class="stat-label">Following</span>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        {% if current_user.is_authenticated %}
+          {% if current_user.id == profile_user.id %}
+          <a href="{{ url_for('edit_profile') }}" class="btn btn-primary btn-sm">Edit Profile</a>
+          {% else %}
+          <form action="{{ url_for('follow', user_id=profile_user.id) }}" method="POST">
+            <input type="hidden" name="username" value="{{ profile_user.username }}">
+            <button type="submit" class="btn {% if is_following %}btn-outline{% else %}btn-primary{% endif %} btn-sm">
+              {{ 'Unfollow' if is_following else 'Follow' }}
+            </button>
+          </form>
+          {% endif %}
+        {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm">Follow</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if posts %}
+  {% for item in posts %}
+  {% set post = item.post %}
+  <div class="post-card">
+    <div class="post-header">
+      <a href="{{ url_for('profile', username=post.author_username) }}">
+        <img src="{{ url_for('static', filename='uploads/' + (post.author_profile_image or 'default.jpg')) }}" alt="{{ post.author_username }}" class="post-author-img">
+      </a>
+      <div class="post-author-info">
+        <a href="{{ url_for('profile', username=post.author_username) }}" class="post-author-name">{{ post.author_username }}</a>
+        <div class="post-time">{{ post.get_time_ago() }}</div>
+      </div>
+      {% if post.user_id == current_user.id %}
+      <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" class="post-delete-form" onsubmit="return confirm('Delete this post?');">
+        <button type="submit" class="post-delete-btn" title="Delete post">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+      </form>
+      {% endif %}
+    </div>
+
+    <div class="post-content">{{ post.content }}</div>
+
+    {% if post.image %}
+    <div class="post-image">
+      <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post image" loading="lazy">
+    </div>
+    {% endif %}
+
+    <div class="post-actions">
+      <button class="post-action-btn like-btn {% if item.is_liked %}liked{% endif %}" data-post-id="{{ post.id }}">
+        <span class="heart-icon">
+          {% if item.is_liked %}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          {% else %}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          {% endif %}
+        </span>
+        Like
+      </button>
+    </div>
+
+    <div id="like-count-{{ post.id }}" class="like-count">{{ item.likes_count }} like{% if item.likes_count != 1 %}s{% endif %}</div>
+
+    {% if item.comments %}
+    <div class="comments-section">
+      {% for comment in item.comments %}
+      <div class="comment">
+        <a href="{{ url_for('profile', username=comment.username) }}">
+          <img src="{{ url_for('static', filename='uploads/' + (comment.profile_image or 'default.jpg')) }}" alt="{{ comment.username }}" class="comment-img">
+        </a>
+        <div class="comment-body">
+          <a href="{{ url_for('profile', username=comment.username) }}" class="comment-author">{{ comment.username }}</a>
+          <div class="comment-text">{{ comment.comment }}</div>
+          <div class="comment-time">
+            {% if comment.user_id == current_user.id %}
+            <form action="{{ url_for('delete_comment', comment_id=comment.id) }}" method="POST" class="comment-delete-form" onsubmit="return confirm('Delete this comment?');">
+              <button type="submit" class="comment-delete-btn">Delete</button>
+            </form>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+    <div class="comments-section">
+      <form class="comment-form" action="{{ url_for('add_comment', post_id=post.id) }}" method="POST">
+        <input type="text" name="comment" placeholder="Write a comment..." required maxlength="500">
+        <button type="submit" aria-label="Post comment">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+{% else %}
+<div class="empty-state">
+  <h3>No posts yet</h3>
+  {% if current_user.id == profile_user.id %}
+  <p>Share your first post with the community!</p>
+  <a href="{{ url_for('create_post') }}" class="btn btn-primary">Create Post</a>
+  {% else %}
+  <p>{{ profile_user.username }} hasn't posted anything yet.</p>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

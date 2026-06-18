@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Search - SocialSphere{% endblock %}
+
+{% block content %}
+<div class="search-wrapper">
+  <div class="search-card">
+    <form action="{{ url_for('search') }}" method="GET" style="display: flex; gap: 10px;">
+      <div class="form-group" style="flex: 1; margin-bottom: 0;">
+        <input type="text" name="q" placeholder="Search by username..." value="{{ query }}" required autofocus>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+
+  {% if query %}
+  <div class="search-card">
+    <h3 style="margin-bottom: 16px;">
+      Results for "{{ query }}"
+      <small style="font-weight: normal; color: var(--text-secondary);">({{ results|length }} found)</small>
+    </h3>
+
+    {% if results %}
+      {% for user in results %}
+      <a href="{{ url_for('profile', username=user.username) }}" style="text-decoration: none;">
+        <div class="user-result">
+          <img src="{{ url_for('static', filename='uploads/' + (user.profile_image or 'default.jpg')) }}" alt="{{ user.username }}" class="user-result-img">
+          <div class="user-result-info">
+            <div class="user-result-name">{{ user.username }}</div>
+            <div class="user-result-email">{{ user.email }}</div>
+          </div>
+          <span style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">View Profile &rarr;</span>
+        </div>
+      </a>
+      {% endfor %}
+    {% else %}
+    <div class="empty-state" style="padding: 40px 20px;">
+      <h3>No users found</h3>
+      <p>Try a different search term.</p>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
