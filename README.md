@@ -2,229 +2,122 @@
 
 <div align="center">
 
-### Full-Stack Social Media Platform
+### Modern Full-Stack Social Media Platform
 
-A modern social networking application built with **Flask**, **MySQL**, **Bootstrap**, and **JavaScript**, featuring user authentication, posts, likes, comments, profiles, and real-time social interactions.
+A scalable social networking web application built using **Flask**, **MySQL**, **Bootstrap**, and **JavaScript**, enabling users to connect, share content, interact through likes and comments, and manage personalized profiles in a secure and responsive environment.
 
-[![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python\&logoColor=white)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-3.0-black?logo=flask)](https://flask.palletsprojects.com)
-[![MySQL](https://img.shields.io/badge/MySQL-8+-orange?logo=mysql)](https://mysql.com)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)](https://getbootstrap.com)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python\&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.0-black?logo=flask)
+![MySQL](https://img.shields.io/badge/MySQL-8+-orange?logo=mysql)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple?logo=bootstrap)
+![GitHub](https://img.shields.io/badge/GitHub-Version%20Control-black?logo=github)
+![CodeAlpha](https://img.shields.io/badge/CodeAlpha-Internship-blue)
 
 </div>
 
 ---
 
-# 📌 Overview
+## 📖 Project Overview
 
-SocialSphere is a full-stack social media platform that enables users to connect, share content, interact through comments and likes, and build their online presence through customizable profiles.
+SocialSphere is a full-stack social networking platform designed to simulate core features found in modern social media applications. The platform allows users to create accounts, publish posts, interact with content, build personal profiles, and engage with other users through a clean and intuitive interface.
 
-The project demonstrates modern web development practices including secure authentication, relational database design, responsive UI development, session management, and scalable backend architecture.
+The application follows a traditional multi-layer architecture with a Flask backend, MySQL database, and responsive frontend, demonstrating best practices in authentication, database design, CRUD operations, session management, and secure web application development.
 
-This project was developed as part of the **CodeAlpha Full Stack Development Internship Program**.
+This project was developed as part of the **CodeAlpha Full Stack Development Internship Program** to strengthen practical skills in full-stack software engineering and real-world application development.
 
 ---
 
-# 🚀 Live Features
+## ✨ Core Features
 
-### 👤 User Authentication
+### 🔐 Authentication & Authorization
 
 * User Registration
-* Secure Login
-* Logout Functionality
-* Password Hashing using Bcrypt
-* Session Management
+* Secure Login & Logout
+* Password Hashing with Flask-Bcrypt
+* Session-Based Authentication
+* Protected Application Routes
 * Remember Me Functionality
 
----
-
-### 📝 Social Posts
-
-Users can:
+### 📝 Content Management
 
 * Create Posts
 * Edit Posts
 * Delete Posts
-* View Public Feed
-* Upload Images
-* Share Thoughts and Updates
+* Image Upload Support
+* Dynamic Content Feed
+
+### ❤️ Social Interactions
+
+* Like & Unlike Posts
+* Comment on Posts
+* Community Engagement Features
+* Interaction Tracking
+
+### 👤 User Profiles
+
+* Personalized User Profiles
+* Profile Picture Upload
+* Bio & Profile Information
+* User Activity Display
+
+### 🔎 Search System
+
+* User Search Functionality
+* Discover Community Members
+* Quick Profile Navigation
+
+### 📱 Responsive User Interface
+
+* Mobile-First Design
+* Tablet Compatibility
+* Desktop Optimization
+* Bootstrap 5 Components
 
 ---
 
-### ❤️ Like System
-
-* Like Posts
-* Unlike Posts
-* Real-Time Like Counter
-* Prevent Duplicate Likes
-
----
-
-### 💬 Comment System
-
-Users can:
-
-* Add Comments
-* View Comments
-* Delete Own Comments
-* Interact with Community Posts
-
----
-
-### 👥 User Profiles
-
-Features include:
-
-* Profile Page
-* Profile Picture Support
-* Bio Section
-* User Information Display
-* Activity Tracking
-
----
-
-### 🔎 Social Feed
-
-* Dynamic Feed Generation
-* Latest Posts First
-* Responsive Feed Layout
-* User Activity Updates
-
----
-
-### 📱 Responsive Design
-
-* Mobile Friendly
-* Tablet Friendly
-* Desktop Optimized
-* Bootstrap 5 UI Components
-
----
-
-# 🏗️ System Architecture
+## 🏛️ System Architecture
 
 ```text
 Client Browser
-       │
-       ▼
-Flask Application
-       │
-       ▼
-Business Logic Layer
-       │
-       ▼
+      │
+      ▼
+Frontend Layer
+(HTML • CSS • JavaScript • Bootstrap)
+      │
+      ▼
+Flask Application Layer
+(Authentication • Business Logic • Routing)
+      │
+      ▼
+Data Access Layer
+(mysql-connector-python)
+      │
+      ▼
 MySQL Database
+(Users • Posts • Likes • Comments)
 ```
 
 ---
 
-# 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-| Layer             | Technology                           |
-| ----------------- | ------------------------------------ |
-| Frontend          | HTML5, CSS3, JavaScript, Bootstrap 5 |
-| Backend           | Python Flask                         |
-| Authentication    | Flask-Login, Flask-Bcrypt            |
-| Database          | MySQL                                |
-| ORM / Data Access | mysql-connector-python               |
-| Security          | Flask-WTF, CSRF Protection           |
-| Deployment Ready  | Render / Railway                     |
-| Version Control   | Git & GitHub                         |
-
----
-
-# 🔐 Security Features
-
-### Authentication Security
-
-* Password Hashing using Bcrypt
-* Secure Session Handling
-* Protected Routes
-* Login Validation
-
-### Application Security
-
-* CSRF Protection
-* SQL Injection Prevention
-* Input Validation
-* Secure Cookies
-* XSS Protection
+| Category         | Technologies                         |
+| ---------------- | ------------------------------------ |
+| Frontend         | HTML5, CSS3, JavaScript, Bootstrap 5 |
+| Backend          | Python, Flask                        |
+| Database         | MySQL                                |
+| Authentication   | Flask-Login, Flask-Bcrypt            |
+| Security         | Flask-WTF, CSRF Protection           |
+| Configuration    | Python-Dotenv                        |
+| Data Access      | mysql-connector-python               |
+| Version Control  | Git, GitHub                          |
+| Deployment Ready | Render, Railway                      |
 
 ---
 
-# ⚡ Performance Features
+## ⚙️ Local Development Setup
 
-* Optimized Database Queries
-* Indexed Tables
-* Efficient Session Management
-* Lightweight Flask Backend
-* Responsive Frontend Rendering
-
----
-
-# 🗄️ Database Design
-
-The application uses MySQL as the primary relational database.
-
-### Core Tables
-
-```text
-users
-posts
-likes
-comments
-followers
-```
-
-### Database Features
-
-✅ Primary Keys
-
-✅ Foreign Keys
-
-✅ Cascading Deletes
-
-✅ Indexed Queries
-
-✅ Relational Integrity
-
----
-
-# 📂 Project Structure
-
-```text
-SOCIALSPHERE/
-│
-├── app.py
-├── config.py
-├── models.py
-├── requirements.txt
-├── database.sql
-├── .env.example
-├── .gitignore
-│
-├── static/
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│
-├── templates/
-│   ├── base.html
-│   ├── login.html
-│   ├── register.html
-│   ├── profile.html
-│   ├── feed.html
-│   ├── post_detail.html
-│
-└── uploads/
-```
-
----
-
-# ⚙️ Installation Guide
-
-## 1️⃣ Clone Repository
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/vijayaragavan-dev/CodeAlpha_SocialSphere.git
@@ -232,45 +125,23 @@ git clone https://github.com/vijayaragavan-dev/CodeAlpha_SocialSphere.git
 cd CodeAlpha_SocialSphere
 ```
 
----
+### 2. Setup MySQL Database
 
-## 2️⃣ Create Virtual Environment
-
-### Windows
+Run the database schema:
 
 ```bash
-python -m venv venv
-
-venv\Scripts\activate
+mysql -u root -p < database.sql
 ```
 
-### Linux / Mac
+### 3. Configure Environment Variables
+
+Copy the example file:
 
 ```bash
-python3 -m venv venv
-
-source venv/bin/activate
+cp .env.example .env
 ```
 
----
-
-## 3️⃣ Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 4️⃣ Configure Environment Variables
-
-Create:
-
-```text
-.env
-```
-
-Example:
+Update the values inside `.env`:
 
 ```env
 SECRET_KEY=your-secret-key
@@ -282,33 +153,19 @@ MYSQL_PASSWORD=your-password
 MYSQL_DB=socialsphere
 ```
 
----
+### 4. Install Dependencies
 
-## 5️⃣ Create Database
-
-Open MySQL and execute:
-
-```sql
-CREATE DATABASE socialsphere;
+```bash
+pip install -r requirements.txt
 ```
 
-Import:
-
-```text
-database.sql
-```
-
-using MySQL Workbench.
-
----
-
-## 6️⃣ Run Application
+### 5. Run the Application
 
 ```bash
 python app.py
 ```
 
-Open:
+Application URL:
 
 ```text
 http://localhost:5000
@@ -316,69 +173,82 @@ http://localhost:5000
 
 ---
 
-# 📸 Screenshots
+## 🗄️ Database Design
 
-Add screenshots here:
+Core Entities:
 
 ```text
-docs/screenshots/home.png
-docs/screenshots/feed.png
-docs/screenshots/profile.png
-docs/screenshots/post.png
+users
+posts
+likes
+comments
+followers
 ```
 
+Database Features:
+
+✅ Relational Database Design
+
+✅ Primary & Foreign Keys
+
+✅ Cascading Deletes
+
+✅ Indexed Queries
+
+✅ Data Integrity Constraints
+
 ---
 
-# 🎯 Key Learning Outcomes
+## 🔒 Security Features
 
-This project demonstrates:
+* Password Hashing using Flask-Bcrypt
+* Session-Based Authentication
+* CSRF Protection
+* Secure Route Protection
+* Input Validation & Sanitization
+* Environment Variable Management
+* SQL Injection Prevention Techniques
 
-* Full Stack Development
+---
+
+## 📚 Learning Outcomes
+
+This project provided practical experience in:
+
+* Full Stack Web Development
+* Flask Application Architecture
+* MySQL Database Design
 * Authentication & Authorization
-* Database Design
 * CRUD Operations
-* RESTful Routing
-* Responsive UI Design
-* Session Management
-* Security Best Practices
+* Responsive UI Development
+* Secure Web Application Design
 * Git & GitHub Workflow
+* Real-World Project Development
 
 ---
 
-# 🚀 Future Enhancements
+## 👨‍💻 Author
 
-* Real-Time Chat System
-* Friend Requests
-* Notifications
-* Story Feature
-* Dark Mode
-* Email Verification
-* AI Content Recommendations
-* Mobile Application
+**Vijayaragavan U**
 
----
+Computer Science & Engineering Student
 
-# 👨‍💻 Author
+GitHub: https://github.com/vijayaragavan-dev
 
-### Vijayaragavan
-
-**Computer Science Engineering Student**
-
-* GitHub: https://github.com/vijayaragavan-dev
-* LinkedIn: Add your LinkedIn profile URL
+LinkedIn: https://www.linkedin.com/in/vijaya-ragavan-ki10052007
 
 ---
 
-# 📄 License
+## 📄 License
 
-This project is licensed under the MIT License.
+This project was developed for educational purposes as part of the CodeAlpha Full Stack Development Internship Program.
 
 ---
 
 <div align="center">
 
-### ⭐ If you found this project useful, consider giving it a star on GitHub.
+⭐ If you found this project useful, consider giving the repository a star.
 
-Built with ❤️ as part of the CodeAlpha Full Stack Development Internship Program.
+Built with ❤️ using Flask and MySQL.
 
 </div>
